@@ -167,27 +167,16 @@
     <x-flash-message />
     <script>
         // Wait for the document to be ready
+        $('#student').DataTable();
+
         $(document).ready(function() {
-            var studentTable = $('#student').DataTable({
-                // Your DataTable configuration options
-            });
-    
             @if ($errors->any())
                 // If there are errors, show the modal
                 $('#staticBackdrop').modal('show');
             @endif
-    
-            // Hide the DataTable initially
-            $('#student').css('visibility', 'hidden');
-    
-            // Show the DataTable after it's fully loaded
-            studentTable.on('init', function() {
-                // Display the DataTable once it's initialized
-                $('#student').css('visibility', 'visible');
-            });
         });
     </script>
-    
+
     @push('scripts')
         <script src="{{ asset('datatables/jquery-3.7.0.js') }}"></script>
         <script>
@@ -206,7 +195,8 @@
                             success: function(data) {
                                 // Empty the existing barangay dropdown before populating
                                 $('#barangay').empty().append(
-                                '<option value="" disabled selected>Select Barangay</option>');
+                                    '<option value="" disabled selected>Select Barangay</option>'
+                                );
 
                                 // Iterate through the API response and populate the dropdown
                                 $.each(data, function(index, barangay) {
@@ -234,7 +224,7 @@
                     success: function(data) {
                         // Empty the existing municipality dropdown before populating
                         $('#municipality').append(
-                        '<option value="" disabled selected>Select Municipality</option>');
+                            '<option value="" disabled selected>Select Municipality</option>');
 
                         // Iterate through the API response and populate the dropdown
                         $.each(data, function(index, municipality) {
