@@ -33,15 +33,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Juan</td>
-                        <td>Dela Cruz</td>
-                        <td>Hello World, Philippines</td>
-                        <td>22</td>
-                        <td>CCS</td> 
-                        <td><button class="btn btn-warning">Edit</button></td> 
-                    </tr>
+                    @foreach ($students as $student)
+                        <tr>
+                            <th scope="row">{{ $student->id }}</th>
+                            <td>{{ $student->first_name }}</td>
+                            <td>{{ $student->last_name }}</td>
+                            <td>{{ $student->address }}</td>
+                            <td>{{ $student->age }}</td>
+                            <td>{{ $student->department }}</td>
+                            <td><button class="btn btn-warning">Edit</button></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
