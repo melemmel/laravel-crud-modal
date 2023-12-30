@@ -28,6 +28,11 @@
     <!-- DataTables Bootstrap 5 JavaScript -->
     <script src="{{ asset('datatables/dataTables.bootstrap5.min.js') }}"></script>
 
+    <!-- Alpine JS -->
+    <script src="{{ asset('js/alpine.cdn.min.js') }}" defer></script>
+
+
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -95,6 +100,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
 </body>
 
