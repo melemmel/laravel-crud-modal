@@ -31,8 +31,12 @@
     <!-- Alpine JS -->
     <script src="{{ asset('js/alpine.cdn.min.js') }}" defer></script>
 
+    <!--Sweet Alert 2 -->
+
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
 
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

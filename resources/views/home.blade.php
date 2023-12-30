@@ -52,8 +52,11 @@
         </div>
     </div>
 
+
     <x-flash-message />
     <script>
         new DataTable('#student');
+
+       
     </script>
 @endsection
