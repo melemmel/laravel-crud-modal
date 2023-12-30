@@ -37,58 +37,76 @@
                         <div class="modal-body">
                             <form action="{{ route('student.store') }}" method="POST">
                                 @csrf
+
                                 <div class="mb-3">
                                     <label for="first_name" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="first_name" name="first_name"
-                                        value="{{ old('first_name') }}" required>
+                                    <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                        id="first_name" name="first_name" value="{{ old('first_name') }}">
                                     @error('first_name')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="last_name" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name"
-                                        value="{{ old('last_name') }}" required>
+                                    <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                        id="last_name" name="last_name" value="{{ old('last_name') }}">
                                     @error('last_name')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Address</label>
-                                    <textarea class="form-control" id="address" name="address" rows="3" required>{{ old('address') }}</textarea>
+                                    <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3"
+                                    >{{ old('address') }}</textarea>
                                     @error('address')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="age" class="form-label">Age</label>
-                                    <input type="number" class="form-control" id="age" name="age"
-                                        value="{{ old('age') }}" required>
+                                    <input type="number" class="form-control @error('age') is-invalid @enderror"
+                                        id="age" name="age" value="{{ old('age') }}">
                                     @error('age')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="department" class="form-label">Department</label>
-                                    <input type="text" class="form-control" id="department" name="department"
-                                        value="{{ old('department') }}" required>
+                                    <input type="text" class="form-control @error('department') is-invalid @enderror"
+                                        id="department" name="department" value="{{ old('department') }}">
                                     @error('department')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 @if ($errors->has('general'))
                                     <div class="text-danger">{{ $errors->first('general') }}</div>
                                 @endif
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="container">
