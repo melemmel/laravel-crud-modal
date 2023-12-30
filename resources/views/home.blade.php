@@ -37,11 +37,11 @@
                         <div class="modal-body">
                             <form action="{{ route('student.store') }}" method="POST">
                                 @csrf
-
                                 <div class="mb-3">
                                     <label for="first_name" class="form-label">First Name</label>
                                     <input type="text" class="form-control @error('first_name') is-invalid @enderror"
-                                        id="first_name" name="first_name" value="{{ old('first_name') }}" required>
+                                        id="first_name" name="first_name" value="{{ old('first_name') }}" required
+                                        autocomplete="given-name">
                                     @error('first_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -52,7 +52,8 @@
                                 <div class="mb-3">
                                     <label for="last_name" class="form-label">Last Name</label>
                                     <input type="text" class="form-control @error('last_name') is-invalid @enderror"
-                                        id="last_name" name="last_name" value="{{ old('last_name') }}" required>
+                                        id="last_name" name="last_name" value="{{ old('last_name') }}" required
+                                        autocomplete="family-name">
                                     @error('last_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -63,7 +64,7 @@
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Address</label>
                                     <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3"
-                                        required>{{ old('address') }}</textarea>
+                                        required autocomplete="street-address">{{ old('address') }}</textarea>
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -74,7 +75,8 @@
                                 <div class="mb-3">
                                     <label for="age" class="form-label">Age</label>
                                     <input type="number" class="form-control @error('age') is-invalid @enderror"
-                                        id="age" name="age" value="{{ old('age') }}" required>
+                                        id="age" name="age" value="{{ old('age') }}" required
+                                        autocomplete="age">
                                     @error('age')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -85,7 +87,8 @@
                                 <div class="mb-3">
                                     <label for="department" class="form-label">Department</label>
                                     <input type="text" class="form-control @error('department') is-invalid @enderror"
-                                        id="department" name="department" value="{{ old('department') }}" required>
+                                        id="department" name="department" value="{{ old('department') }}" required
+                                        autocomplete="organization">
                                     @error('department')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -106,39 +109,39 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="container">
-            <table class="table table-striped" id="student">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $student)
+            <div class="table-responsive">
+                <table class="table table-striped" id="student">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $student->id }}</th>
-                            <td>{{ $student->first_name }}</td>
-                            <td>{{ $student->last_name }}</td>
-                            <td>{{ $student->address }}</td>
-                            <td>{{ $student->age }}</td>
-                            <td>{{ $student->department }}</td>
-                            <td><button class="btn btn-warning">Edit</button></td>
+                            <th scope="col">#</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $student)
+                            <tr>
+                                <th scope="row">{{ $student->id }}</th>
+                                <td>{{ $student->first_name }}</td>
+                                <td>{{ $student->last_name }}</td>
+                                <td>{{ $student->address }}</td>
+                                <td>{{ $student->age }}</td>
+                                <td>{{ $student->department }}</td>
+                                <td><button class="btn btn-warning">Edit</button></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
 
     <x-flash-message />
     <script>
