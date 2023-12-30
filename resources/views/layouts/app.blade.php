@@ -43,6 +43,7 @@
 </head>
 
 <body>
+    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
@@ -106,6 +107,11 @@
         </main>
 
     </div>
+
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script> --}}
+
+    @stack('scripts')
+
 </body>
 
 </html>

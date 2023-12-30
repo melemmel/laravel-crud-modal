@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
+
+        <x-loader />
         {{-- <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -61,11 +63,37 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3"
-                                        required autocomplete="street-address">{{ old('address') }}</textarea>
+                                {{-- <div class="mb-3">
+                                    <label for="address" class="form-label" id="municipality">Municipality</label>
+                                    <select class="form-control @error('address') is-invalid @enderror" id="address"
+                                        name="address" required>
+                                        <option value="" disabled selected>Select an address</option>
+                                        <option value="address1" {{ old('address') == 'address1' ? 'selected' : '' }}>
+                                            Address 1</option>
+                                        <option value="address2" {{ old('address') == 'address2' ? 'selected' : '' }}>
+                                            Address 2</option>
+                                    </select>
                                     @error('address')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> --}}
+
+                                <div class="mb-3">
+                                    <label for="municipality" class="form-label" id="municipalityLabel">Municipality</label>
+                                    <select class="form-control" id="municipality" name="municipality" required>
+                                        <!-- Options will be dynamically populated by your script -->
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="barangay" class="form-label" id="barangayLabel">Barangay</label>
+                                    <select class="form-control @error('barangay') is-invalid @enderror" id="barangay"
+                                        name="barangay" required>
+                                        <option value="" disabled selected>Select an barangay</option>
+                                    </select>
+                                    @error('barangay')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -109,6 +137,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="container">
@@ -131,7 +160,7 @@
                                 <th scope="row">{{ $student->id }}</th>
                                 <td>{{ $student->first_name }}</td>
                                 <td>{{ $student->last_name }}</td>
-                                <td>{{ $student->address }}</td>
+                                <td>{{ $student->barangay }}, {{ $student->municipality }}</td>
                                 <td>{{ $student->age }}</td>
                                 <td>{{ $student->department }}</td>
                                 <td><button class="btn btn-warning">Edit</button></td>
@@ -153,4 +182,58 @@
             });
         @endif
     </script>
+
+    @push('scripts')
+        <script src="{{ asset('datatables/jquery-3.7.0.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                fetchData();
+
+                $('#municipality').on('change', function() {
+                    $.ajax({
+                        url: 'https://psgc.gitlab.io/api/cities-municipalities/' + $(this).val() +
+                            '/barangays/',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            // Iterate through the API response and populate the dropdown
+                            $('#barangay').empty().append(
+                                '<option value="" disabled selected>Select Barangay</option>');
+                            $.each(data, function(index, barangay) {
+                                $('#barangay').append('<option value="' + barangay.code +
+                                    '">' + barangay.name + '</option>');
+                            });
+                        },
+                        error: function(error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    });
+
+                });
+            });
+
+            function fetchData() {
+                $.ajax({
+                    url: 'https://psgc.gitlab.io/api/provinces/051700000/cities-municipalities/',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // Iterate through the API response and populate the dropdown
+                        $('#municipality').append(
+                        '<option value="" disabled selected>Select Municipality</option>');
+
+                        $.each(data, function(index, municipality) {
+                            $('#municipality').append('<option value="' + municipality.code + '">' +
+                                municipality.name + '</option>');
+                        });
+
+
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+        </script>
+    @endpush
 @endsection
