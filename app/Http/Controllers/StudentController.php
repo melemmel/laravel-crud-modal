@@ -31,8 +31,8 @@ class StudentController extends Controller
     {
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => ['required', 'regex:/^[a-zA-Z]+$/'],
+            'last_name' => ['required', 'regex:/^[a-zA-Z]+$/'],
             'address' => 'required',
             'age' => 'required',
             'department' => 'required',
