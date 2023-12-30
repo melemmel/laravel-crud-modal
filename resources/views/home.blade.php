@@ -19,8 +19,11 @@
                 </div>
             </div>
         </div> --}}
+        <div class="container mt-5">
+            <h1>Students</h1>
+        </div>
         <div class="container">
-            <table class="table table-striped">
+            <table class="table table-striped" id="student">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -48,4 +51,7 @@
             </table>
         </div>
     </div>
+    <script>
+        new DataTable('#student');
+    </script>
 @endsection
