@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container mt-5">
-
-        <x-loader />
         {{-- <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -89,15 +87,9 @@
 
                                 <div class="mb-3">
                                     <label for="barangay" class="form-label" id="barangayLabel">Barangay</label>
-                                    <select class="form-control @error('barangay') is-invalid @enderror" id="barangay"
-                                        name="barangay" required>
-                                        <option value="" disabled selected>Select an barangay</option>
+                                    <select class="form-control" id="barangay" name="barangay" required>
+
                                     </select>
-                                    @error('barangay')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 <div class="mb-3">
@@ -174,15 +166,28 @@
 
     <x-flash-message />
     <script>
-        new DataTable('#student');
-
-        @if ($errors->any())
-            $(document).ready(function() {
-                $('#staticBackdrop').modal('show');
+        // Wait for the document to be ready
+        $(document).ready(function() {
+            var studentTable = $('#student').DataTable({
+                // Your DataTable configuration options
             });
-        @endif
+    
+            @if ($errors->any())
+                // If there are errors, show the modal
+                $('#staticBackdrop').modal('show');
+            @endif
+    
+            // Hide the DataTable initially
+            $('#student').css('visibility', 'hidden');
+    
+            // Show the DataTable after it's fully loaded
+            studentTable.on('init', function() {
+                // Display the DataTable once it's initialized
+                $('#student').css('visibility', 'visible');
+            });
+        });
     </script>
-
+    
     @push('scripts')
         <script src="{{ asset('datatables/jquery-3.7.0.js') }}"></script>
         <script>
@@ -190,25 +195,34 @@
                 fetchData();
 
                 $('#municipality').on('change', function() {
-                    $.ajax({
-                        url: 'https://psgc.gitlab.io/api/cities-municipalities/' + $(this).val() +
-                            '/barangays/',
-                        method: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            // Iterate through the API response and populate the dropdown
-                            $('#barangay').empty().append(
+                    var selectedMunicipalityOption = $(this).find(':selected');
+                    var selectedMunicipalityCode = selectedMunicipalityOption.data('municipality-id');
+                    if (selectedMunicipalityCode) {
+                        $.ajax({
+                            url: 'https://psgc.gitlab.io/api/cities-municipalities/' +
+                                selectedMunicipalityCode + '/barangays/',
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                // Empty the existing barangay dropdown before populating
+                                $('#barangay').empty().append(
                                 '<option value="" disabled selected>Select Barangay</option>');
-                            $.each(data, function(index, barangay) {
-                                $('#barangay').append('<option value="' + barangay.code +
-                                    '">' + barangay.name + '</option>');
-                            });
-                        },
-                        error: function(error) {
-                            console.error('Error fetching data:', error);
-                        }
-                    });
 
+                                // Iterate through the API response and populate the dropdown
+                                $.each(data, function(index, barangay) {
+                                    $('#barangay').append('<option value="' + barangay
+                                        .name + '" data-brgy-id="' + barangay.code +
+                                        '">' + barangay.name + '</option>');
+                                });
+                            },
+                            error: function(error) {
+                                console.error('Error fetching data:', error);
+                            }
+                        });
+                    } else {
+                        // If no municipality is selected, empty the barangay dropdown
+                        $('#barangay').empty();
+                    }
                 });
             });
 
@@ -218,16 +232,16 @@
                     method: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        // Iterate through the API response and populate the dropdown
+                        // Empty the existing municipality dropdown before populating
                         $('#municipality').append(
                         '<option value="" disabled selected>Select Municipality</option>');
 
+                        // Iterate through the API response and populate the dropdown
                         $.each(data, function(index, municipality) {
-                            $('#municipality').append('<option value="' + municipality.code + '">' +
-                                municipality.name + '</option>');
+                            $('#municipality').append('<option value="' + municipality.name +
+                                '" data-municipality-id="' + municipality.code + '">' + municipality
+                                .name + '</option>');
                         });
-
-
                     },
                     error: function(error) {
                         console.error('Error fetching data:', error);
