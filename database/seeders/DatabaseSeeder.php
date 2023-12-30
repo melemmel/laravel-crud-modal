@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Student;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +22,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+             // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+        
         Student::factory(100)->create();
+
+        DB::table('users')->insert([
+            'name' => 'Test User',
+            'username' => 'test',
+            'email' => 'test@example.com',
+            'password' => Hash::make('!password'),
+        ]);
+        
     }
 }
