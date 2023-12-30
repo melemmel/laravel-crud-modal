@@ -42,7 +42,7 @@ class StudentController extends Controller
         if ($validator->fails()) {
             // If validation fails, redirect back to the '/home' route
             // with errors and the input data from the request
-            return redirect('/home')
+            return redirect()->route('home')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -54,7 +54,7 @@ class StudentController extends Controller
         Student::create($validated);
 
         // Redirect to the '/home' route after successful data creation
-        return redirect('/home');
+        return redirect()->route('home')->with('message', 'Student created successfully!');
     }
 
 
