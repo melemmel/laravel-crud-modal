@@ -151,7 +151,130 @@
                                 <td>{{ $student->barangay }}, {{ $student->municipality }}</td>
                                 <td>{{ $student->age }}</td>
                                 <td>{{ $student->department }}</td>
-                                <td><button class="btn btn-warning">Edit</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdropEdit{{ $student->id }}">
+                                        <i class="bi bi-person-plus"></i> Edit
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdropEdit{{ $student->id }}"
+                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Student</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('student.update', $student->id) }}"
+                                                        method="POST">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <div class="mb-3">
+                                                            <label for="first_name" class="form-label">First Name</label>
+                                                            <input type="text"
+                                                                class="form-control @error('first_name') is-invalid @enderror"
+                                                                id="first_name" name="first_name"
+                                                                value="{{ $student->first_name }}" required
+                                                                autocomplete="given-name">
+                                                            @error('first_name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="last_name" class="form-label">Last Name</label>
+                                                            <input type="text"
+                                                                class="form-control @error('last_name') is-invalid @enderror"
+                                                                id="last_name" name="last_name"
+                                                                value="{{ $student->last_name }}" required
+                                                                autocomplete="family-name">
+                                                            @error('last_name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        {{-- <div class="mb-3">
+                                                            <label for="municipality" class="form-label"
+                                                                id="municipalityLabel">Municipality</label>
+                                                            <select
+                                                                class="form-control @error('municipality') is-invalid @enderror"
+                                                                id="municipality" name="municipality" required>
+                                                                <!-- Options will be dynamically populated by your script -->
+                                                            </select>
+                                                            @error('municipality')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="barangay" class="form-label"
+                                                                id="barangayLabel">Barangay</label>
+                                                            <select class="form-control" id="barangay" name="barangay"
+                                                                required>
+                                                                <!-- Options will be dynamically populated by your script -->
+                                                            </select>
+                                                        </div> --}}
+
+                                                        <div class="mb-3">
+                                                            <label for="age" class="form-label">Age</label>
+                                                            <input type="number"
+                                                                class="form-control @error('age') is-invalid @enderror"
+                                                                id="age" name="age"
+                                                                value="{{ $student->age }}" required autocomplete="age">
+                                                            @error('age')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="department" class="form-label">Department</label>
+                                                            <select
+                                                                class="form-control @error('department') is-invalid @enderror"
+                                                                id="department" name="department" required>
+                                                                <option value="" disabled>Select Department</option>
+                                                                @foreach ($departments as $dept)
+                                                                    <option value="{{ $dept }}"
+                                                                        {{ $student->department == $dept ? 'selected' : '' }}>
+                                                                        {{ $dept }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('department')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+
+                                                        @if ($errors->has('general'))
+                                                            <div class="text-danger">{{ $errors->first('general') }}</div>
+                                                        @endif
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                Changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

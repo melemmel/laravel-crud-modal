@@ -23,3 +23,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/student/store', [StudentController::class, 'store'])->name('student.store');
+Route::put('/student/update{student}', [StudentController::class, 'update'])->name('student.update');

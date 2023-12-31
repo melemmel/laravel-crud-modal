@@ -81,6 +81,32 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'first_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'last_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            // 'municipality' => 'required',
+            // 'barangay' => 'required',
+            'age' => 'required',
+            'department' => 'required',
+        ]);
+        
+        // Check if validation fails
+        if ($validator->fails()) {
+            // If validation fails, redirect back to the '/home' route
+            // with errors and the input data from the request
+            return redirect()->route('home')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Retrieve the validated data from the validator
+        $validated = $validator->validated();
+
+        // Create a new Student record in the database using the validated data
+        $student->update($validated);
+
+        // Redirect to the '/home' route after successful data creation
+        return redirect()->route('home')->with('message', 'Student updated successfully!');
     }
 
     /**
