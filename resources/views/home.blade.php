@@ -60,29 +60,17 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                {{-- <div class="mb-3">
-                                    <label for="address" class="form-label" id="municipality">Municipality</label>
-                                    <select class="form-control @error('address') is-invalid @enderror" id="address"
-                                        name="address" required>
-                                        <option value="" disabled selected>Select an address</option>
-                                        <option value="address1" {{ old('address') == 'address1' ? 'selected' : '' }}>
-                                            Address 1</option>
-                                        <option value="address2" {{ old('address') == 'address2' ? 'selected' : '' }}>
-                                            Address 2</option>
+                                <div class="mb-3">
+                                    <label for="municipality" class="form-label" id="municipalityLabel">Municipality</label>
+                                    <select class="form-control @error('municipality') is-invalid @enderror"
+                                        id="municipality" name="municipality" required>
+                                        <!-- Options will be dynamically populated by your script -->
                                     </select>
-                                    @error('address')
+                                    @error('municipality')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div> --}}
-
-                                <div class="mb-3">
-                                    <label for="municipality" class="form-label" id="municipalityLabel">Municipality</label>
-                                    <select class="form-control" id="municipality" name="municipality" required>
-                                        <!-- Options will be dynamically populated by your script -->
-                                    </select>
                                 </div>
 
                                 <div class="mb-3">
