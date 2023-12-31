@@ -153,21 +153,19 @@
     </div>
 
     <x-flash-message />
-    <script>
-        // Wait for the document to be ready
-        $('#student').DataTable();
-
-        $(document).ready(function() {
-            @if ($errors->any())
-                // If there are errors, show the modal
-                $('#staticBackdrop').modal('show');
-            @endif
-        });
-    </script>
 
     @push('scripts')
         <script src="{{ asset('datatables/jquery-3.7.0.js') }}"></script>
         <script>
+            // Wait for the document to be ready
+            $('#student').DataTable();
+
+            $(document).ready(function() {
+                @if ($errors->any())
+                    // If there are errors, show the modal
+                    $('#staticBackdrop').modal('show');
+                @endif
+            });
             $(document).ready(function() {
                 fetchData();
 
