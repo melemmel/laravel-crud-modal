@@ -94,15 +94,23 @@
 
                                 <div class="mb-3">
                                     <label for="department" class="form-label">Department</label>
-                                    <input type="text" class="form-control @error('department') is-invalid @enderror"
-                                        id="department" name="department" value="{{ old('department') }}" required
-                                        autocomplete="organization">
+                                    <select class="form-control @error('department') is-invalid @enderror" id="department"
+                                        name="department" required>
+                                        <option value="" disabled selected>Select Department</option>
+                                        @foreach ($departments as $department)
+                                            <option value="{{ $department }}"
+                                                {{ old('department') == $department ? 'selected' : '' }}>
+                                                {{ $department }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @error('department')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
+
 
                                 @if ($errors->has('general'))
                                     <div class="text-danger">{{ $errors->first('general') }}</div>

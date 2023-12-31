@@ -24,8 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home',[
+        $departments = ['CCS', 'COEA', 'CTHBM', 'CAS', 'CTDE', 'CHS'];
+
+        return view('home', [
             'students' => Student::all(),
+            'departments' => $departments,
         ]);
     }
 }
