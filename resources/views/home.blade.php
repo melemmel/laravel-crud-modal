@@ -37,47 +37,66 @@
                         <div class="modal-body">
                             <form action="{{ route('student.store') }}" method="POST">
                                 @csrf
+
+                                <div class="mb-3 row">
+                                    <div class="col-md-6">
+                                        <label for="first_name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                            id="first_name" name="first_name" value="{{ old('first_name') }}" required
+                                            autocomplete="given-name">
+                                        @error('first_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="last_name" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                            id="last_name" name="last_name" value="{{ old('last_name') }}" required
+                                            autocomplete="family-name">
+                                        @error('last_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
-                                    <label for="first_name" class="form-label">First Name</label>
-                                    <input type="text" class="form-control @error('first_name') is-invalid @enderror"
-                                        id="first_name" name="first_name" value="{{ old('first_name') }}" required
-                                        autocomplete="given-name">
-                                    @error('first_name')
+                                    <label for="zone_street" class="form-label">Zone Street</label>
+                                    <input type="text" class="form-control @error('zone_street') is-invalid @enderror"
+                                        id="zone_street" name="zone_street" value="{{ old('zone_street') }}" required
+                                        autocomplete="zone_street">
+                                    @error('zone_street')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="last_name" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control @error('last_name') is-invalid @enderror"
-                                        id="last_name" name="last_name" value="{{ old('last_name') }}" required
-                                        autocomplete="family-name">
-                                    @error('last_name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="municipality" class="form-label" id="municipalityLabel">Municipality</label>
-                                    <select class="form-control @error('municipality') is-invalid @enderror"
-                                        id="municipality" name="municipality" required>
-                                        <!-- Options will be dynamically populated by your script -->
-                                    </select>
-                                    @error('municipality')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-md-6">
+                                        <label for="municipality" class="form-label"
+                                            id="municipalityLabel">Municipality</label>
+                                        <select class="form-control @error('municipality') is-invalid @enderror"
+                                            id="municipality" name="municipality" required>
+                                            <!-- Options will be dynamically populated by your script -->
+                                        </select>
+                                        @error('municipality')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="barangay" class="form-label" id="barangayLabel">Barangay</label>
-                                    <select class="form-control" id="barangay" name="barangay" required>
+                                    <div class="col-md-6">
+                                        <label for="barangay" class="form-label" id="barangayLabel">Barangay</label>
+                                        <select class="form-control" id="barangay" name="barangay" required>
 
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -111,13 +130,13 @@
                                     @enderror
                                 </div>
 
-
                                 @if ($errors->has('general'))
                                     <div class="text-danger">{{ $errors->first('general') }}</div>
                                 @endif
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
@@ -125,6 +144,7 @@
                     </div>
                 </div>
             </div>
+
 
         </div>
 
@@ -148,7 +168,8 @@
                                 <th scope="row">{{ $student->id }}</th>
                                 <td>{{ ucwords($student->first_name) }}</td>
                                 <td>{{ ucwords($student->last_name) }}</td>
-                                <td>{{ $student->barangay }}, {{ $student->municipality }}</td>
+                                <td>{{ $student->zone_street }}, {{ $student->barangay }}, {{ $student->municipality }}
+                                </td>
                                 <td>{{ \Carbon\Carbon::parse($student->date_of_birth)->format('d, F Y') }}</td>
                                 <td>{{ $student->department }}</td>
                                 <td>
@@ -225,11 +246,13 @@
                                                         </div> --}}
 
                                                         <div class="mb-3">
-                                                            <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                                            <label for="date_of_birth" class="form-label">Date of
+                                                                Birth</label>
                                                             <input type="date"
                                                                 class="form-control @error('date_of_birth') is-invalid @enderror"
                                                                 id="date_of_birth" name="date_of_birth"
-                                                                value="{{ $student->date_of_birth }}" required autocomplete="date_of_birth">
+                                                                value="{{ $student->date_of_birth }}" required
+                                                                autocomplete="date_of_birth">
                                                             @error('date_of_birth')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>

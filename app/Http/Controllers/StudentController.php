@@ -29,10 +29,12 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
             'first_name' => ['required', 'regex:/^[a-zA-Z]+$/'],
             'last_name' => ['required', 'regex:/^[a-zA-Z]+$/'],
+            'zone_street' => 'required',
             'municipality' => 'required',
             'barangay' => 'required',
             'date_of_birth' => 'required',
