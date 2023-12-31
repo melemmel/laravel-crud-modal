@@ -1,107 +1,196 @@
-
 <style>
-  /* .fade-in-content {
-      animation: fadeIn 2s;
-  } */
+    .loader {
+        --path: hsl(0, 0%, 100%);
+        --dot: hsl(0, 0%, 100%);
+        --duration: 3s;
+        width: 44px;
+        height: 44px;
+        position: relative;
+    }
 
-  @keyframes fadeIn {
-      0% {
-          opacity: 0.5;
-      }
+    .loader-wrapper {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0vh;
+        left: 0;
+        background-color: #242f3f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
 
-      100% {
-          opacity: 1;
-      }
-  }
+    .loader:before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        position: absolute;
+        display: block;
+        background: var(--dot);
+        top: 37px;
+        left: 19px;
+        transform: translate(-18px, -18px);
+        animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    }
 
-  .loader-wrapper {
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 0vh;
-      left: 0;
-      background-color: #242f3f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-  }
+    .loader svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 
-  .loader {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      position: relative;
-      border: 4px solid #fff;
-      animation: loader 2s infinite ease;
-      top: -1vh;
-  }
+    .loader svg rect,
+    .loader svg polygon,
+    .loader svg circle {
+        fill: none;
+        stroke: var(--path);
+        stroke-width: 10px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+    }
 
-  .loader-inner {
-      /* padding: 12px; */
-      vertical-align: top;
-      display: inline-block;
-      width: 100%;
+    .loader svg polygon {
+        stroke-dasharray: 145 76 145 76;
+        stroke-dashoffset: 0;
+        animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    }
 
-      @media screen {}
+    .loader svg rect {
+        stroke-dasharray: 192 64 192 64;
+        stroke-dashoffset: 0;
+        animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    }
 
-      background-color: #fff;
-      animation: loader-inner 2s infinite ease-in;
-  }
+    .loader svg circle {
+        stroke-dasharray: 150 50 150 50;
+        stroke-dashoffset: 75;
+        animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    }
 
-  @keyframes loader {
-      0% {
-          transform: rotate(0deg);
-      }
+    .loader.triangle {
+        width: 48px;
+    }
 
-      25% {
-          transform: rotate(180deg);
-      }
+    .loader.triangle:before {
+        left: 21px;
+        transform: translate(-10px, -18px);
+        animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    }
 
-      50% {
-          transform: rotate(180deg);
-      }
+    @keyframes pathTriangle {
+        33% {
+            stroke-dashoffset: 74;
+        }
 
-      75% {
-          transform: rotate(360deg);
-      }
+        66% {
+            stroke-dashoffset: 147;
+        }
 
-      100% {
-          transform: rotate(360deg);
-      }
-  }
+        100% {
+            stroke-dashoffset: 221;
+        }
+    }
 
-  @keyframes loader-inner {
-      0% {
-          height: 0%;
-      }
+    @keyframes dotTriangle {
+        33% {
+            transform: translate(0, 0);
+        }
 
-      25% {
-          height: 0%;
-      }
+        66% {
+            transform: translate(10px, -18px);
+        }
 
-      50% {
-          height: 100%;
-      }
+        100% {
+            transform: translate(-10px, -18px);
+        }
+    }
 
-      75% {
-          height: 100%;
-      }
+    @keyframes pathRect {
+        25% {
+            stroke-dashoffset: 64;
+        }
 
-      100% {
-          height: 0%;
-      }
-  }
+        50% {
+            stroke-dashoffset: 128;
+        }
+
+        75% {
+            stroke-dashoffset: 192;
+        }
+
+        100% {
+            stroke-dashoffset: 256;
+        }
+    }
+
+    @keyframes dotRect {
+        25% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(18px, -18px);
+        }
+
+        75% {
+            transform: translate(0, -36px);
+        }
+
+        100% {
+            transform: translate(-18px, -18px);
+        }
+    }
+
+    @keyframes pathCircle {
+        25% {
+            stroke-dashoffset: 125;
+        }
+
+        50% {
+            stroke-dashoffset: 175;
+        }
+
+        75% {
+            stroke-dashoffset: 225;
+        }
+
+        100% {
+            stroke-dashoffset: 275;
+        }
+    }
+
+    .loader {
+        display: inline-block;
+        margin: 0 16px;
+    }
 </style>
 
 <div class="loader-wrapper">
-  <span class="loader"><span class="loader-inner"></span></span>
+    <div class="loader">
+        <svg viewBox="0 0 80 80">
+            <circle id="test" cx="40" cy="40" r="32"></circle>
+        </svg>
+    </div>
+
+    <div class="loader triangle">
+        <svg viewBox="0 0 86 80">
+            <polygon points="43 8 79 72 7 72"></polygon>
+        </svg>
+    </div>
+
+    <div class="loader">
+        <svg viewBox="0 0 80 80">
+            <rect x="8" y="8" width="64" height="64"></rect>
+        </svg>
+    </div>
 </div>
 
 <script>
-  $(window).on("load", function() {
-      setTimeout(function() {
-          $(".loader-wrapper").fadeOut(500); // Adjust the duration in milliseconds
-      }, 500); // 0.5 seconds
-  });
+    $(window).on("load", function() {
+        setTimeout(function() {
+            $(".loader-wrapper").fadeOut(500); // Adjust the duration in milliseconds
+        }, 500); // 0.5 seconds
+    });
 </script>
