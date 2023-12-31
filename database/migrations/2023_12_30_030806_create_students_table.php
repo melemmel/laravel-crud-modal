@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('municipality');
             $table->string('barangay');
-            $table->integer('age');
+            $table->date('date_of_birth');
             $table->enum('department', ['CCS', 'COEA', 'CTHBM', 'CAS', 'CTDE', 'CHSD']);
             $table->timestamps();
         });

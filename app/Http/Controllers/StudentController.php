@@ -35,10 +35,10 @@ class StudentController extends Controller
             'last_name' => ['required', 'regex:/^[a-zA-Z]+$/'],
             'municipality' => 'required',
             'barangay' => 'required',
-            'age' => 'required',
+            'date_of_birth' => 'required',
             'department' => 'required',
         ]);
-        
+
         // Check if validation fails
         if ($validator->fails()) {
             // If validation fails, redirect back to the '/home' route
@@ -86,10 +86,10 @@ class StudentController extends Controller
             'last_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             // 'municipality' => 'required',
             // 'barangay' => 'required',
-            'age' => 'required',
+            'date_of_birth' => 'required',
             'department' => 'required',
         ]);
-        
+
         // Check if validation fails
         if ($validator->fails()) {
             // If validation fails, redirect back to the '/home' route

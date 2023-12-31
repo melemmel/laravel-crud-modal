@@ -81,11 +81,11 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="age" class="form-label">Age</label>
-                                    <input type="number" class="form-control @error('age') is-invalid @enderror"
-                                        id="age" name="age" value="{{ old('age') }}" required
-                                        autocomplete="age">
-                                    @error('age')
+                                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
+                                        id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" required
+                                        autocomplete="date_of_birth">
+                                    @error('date_of_birth')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -137,7 +137,7 @@
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
                             <th scope="col">Address</th>
-                            <th scope="col">Age</th>
+                            <th scope="col">Date of Birth</th>
                             <th scope="col">Department</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -146,10 +146,10 @@
                         @foreach ($students as $student)
                             <tr>
                                 <th scope="row">{{ $student->id }}</th>
-                                <td>{{ $student->first_name }}</td>
-                                <td>{{ $student->last_name }}</td>
+                                <td>{{ ucwords($student->first_name) }}</td>
+                                <td>{{ ucwords($student->last_name) }}</td>
                                 <td>{{ $student->barangay }}, {{ $student->municipality }}</td>
-                                <td>{{ $student->age }}</td>
+                                <td>{{ \Carbon\Carbon::parse($student->date_of_birth)->format('d, F Y') }}</td>
                                 <td>{{ $student->department }}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal"
@@ -225,12 +225,12 @@
                                                         </div> --}}
 
                                                         <div class="mb-3">
-                                                            <label for="age" class="form-label">Age</label>
-                                                            <input type="number"
-                                                                class="form-control @error('age') is-invalid @enderror"
-                                                                id="age" name="age"
-                                                                value="{{ $student->age }}" required autocomplete="age">
-                                                            @error('age')
+                                                            <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                                            <input type="date"
+                                                                class="form-control @error('date_of_birth') is-invalid @enderror"
+                                                                id="date_of_birth" name="date_of_birth"
+                                                                value="{{ $student->date_of_birth }}" required autocomplete="date_of_birth">
+                                                            @error('date_of_birth')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
