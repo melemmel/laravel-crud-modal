@@ -122,4 +122,25 @@ class StudentController extends Controller
         // Redirect to the '/home' route
         return redirect()->route('home')->with('message', 'Student deleted successfully!');
     }
+
+    public function archive()
+    {
+
+        $departments = ['CCS', 'COEA', 'CTHBM', 'CAS', 'CTDE', 'CHS'];
+        
+        return view('archive.index', [
+            'students' => Student::onlyTrashed()->latest()->paginate(5),
+            'departments' => $departments
+        ]);
+    }
+
+    public function restore($id, Request $request)
+    {
+        $student = Student::withTrashed()->find($id);
+
+        $student->restore();
+
+        return redirect()->route('home')
+            ->with('message', 'Student restored successfully!');
+    }
 }

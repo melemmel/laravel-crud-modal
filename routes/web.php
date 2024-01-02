@@ -24,4 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::post('/student/store', [StudentController::class, 'store'])->name('student.store');
 Route::put('/student/update{student}', [StudentController::class, 'update'])->name('student.update');
+Route::patch('/student/{id}/restore', [StudentController::class, 'restore'])->name('student.restore');
 Route::delete('/student/delete{student}', [StudentController::class, 'destroy'])->name('student.destroy');
+
+Route::get('/student/archive', [StudentController::class, 'archive'])->name('student.archive');

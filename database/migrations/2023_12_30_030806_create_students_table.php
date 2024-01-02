@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->enum('department', ['CCS', 'COEA', 'CTHBM', 'CAS', 'CTDE', 'CHSD']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
