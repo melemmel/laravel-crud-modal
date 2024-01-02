@@ -308,7 +308,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Delete Student</h5>
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Archive Student</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -323,7 +323,7 @@
                                                         @csrf
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="submit" class="btn btn-success">Archive</button>
                                                     </form>
                                                 </div>
                                             </div>
