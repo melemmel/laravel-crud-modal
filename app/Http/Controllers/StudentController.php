@@ -116,6 +116,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        // Delete the student from the database
+        $student->delete();
+
+        // Redirect to the '/home' route
+        return redirect()->route('home')->with('message', 'Student deleted successfully!');
     }
 }

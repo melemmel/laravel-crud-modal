@@ -24,3 +24,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::post('/student/store', [StudentController::class, 'store'])->name('student.store');
 Route::put('/student/update{student}', [StudentController::class, 'update'])->name('student.update');
+Route::delete('/student/delete{student}', [StudentController::class, 'destroy'])->name('student.destroy');
