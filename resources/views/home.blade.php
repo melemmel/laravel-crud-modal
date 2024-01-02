@@ -313,7 +313,8 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Are you sure you want to delete this student?</p>
+                                                    <p>Are you sure you want to delete this student
+                                                        <strong>{{ $student->first_name }}</strong>?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route('student.destroy', $student->id) }}"
