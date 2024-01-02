@@ -120,7 +120,7 @@ class StudentController extends Controller
         $student->delete();
 
         // Redirect to the '/home' route
-        return redirect()->route('home')->with('message', 'Student deleted successfully!');
+        return redirect()->route('home')->with('message', 'Student archived successfully!');
     }
 
     public function archive()
